@@ -1,17 +1,17 @@
 terraform {
 
-    cloud { 
-    
-    organization = "Projects_and_deliverables" 
+  cloud {
 
-    workspaces { 
-      name = "NoteApp" 
-    } 
-  } 
-  
+    organization = "Projects_and_deliverables"
+
+    workspaces {
+      name = "NoteApp"
+    }
+  }
+
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "6.14.1"
     }
   }
