@@ -22,29 +22,29 @@ resource "aws_ssm_parameter" "MONGO_INITDB_ROOT_PASSWORD" {
 resource "aws_ssm_parameter" "MONGO_USERNAME" {
   name  = "/noteapp/backend/MONGO_USERNAME"
   type  = "String"
-  value = "noteappadmin"
+  value = var.ssm_backend_variables["MONGO_USERNAME"]
 }
 
 resource "aws_ssm_parameter" "MONGO_PASSWORD" {
   name  = "/noteapp/backend/MONGO_PASSWORD"
   type  = "SecureString"
-  value = "noteappsecret"
+  value = var.ssm_backend_variables["MONGO_PASSWORD"]
 }
 
 resource "aws_ssm_parameter" "MONGO_DB" {
   name  = "/noteapp/backend/MONGO_DB"
   type  = "String"
-  value = "noteappdb"
+  value = var.ssm_backend_variables["MONGO_DB"]
 }
 
 resource "aws_ssm_parameter" "MONGO_PORT" {
   name  = "/noteapp/backend/MONGO_PORT"
   type  = "String"
-  value = "27017"
+  value = var.ssm_backend_variables["MONGO_DB"]
 }
 
 resource "aws_ssm_parameter" "MONGO_HOST" {
   name  = "/noteapp/backend/MONGO_HOST"
   type  = "String"
-  value = "${aws_service_discovery_private_dns_namespace.noteapp_namespace.name}.temp" #Required Service Discovery value first
+  value = var.ssm_backend_variables["MONGO_HOST"] #Required Service Discovery value first
 }

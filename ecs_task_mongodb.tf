@@ -1,3 +1,12 @@
+# In order to have an ID, use the created aws subnet.
+locals {
+  subnet_set = [
+    for i, j in aws_subnet.noteapp_subnet :
+    j.id
+    if var.subnet_config[i].is_public == true
+  ]
+}
+
 # Task Definition (MongoDB)
 resource "aws_ecs_task_definition" "mongodb_task_def" {
   family                   = "noteapp_mongodb"
@@ -39,4 +48,19 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
       ]
     }
   ])
+}
+
+resource "aws_ecs_service" "mongodb_service" {
+  #Task definition family.
+  task_definition = aws_ecs_task_definition.mongodb_task_def.arn
+  name            = "mongodb"
+  cluster         = aws_ecs_cluster.noteapp_ecs_cluster.id
+  desired_count   = 1
+
+  force_new_deployment = true
+
+  network_configuration {
+    subnets         = local.subnet_set
+    security_groups = [aws_security_group.mongodb_sg.id]
+  }
 }

@@ -11,3 +11,8 @@ variable "ssm_db_credentials" {
   type      = map(string)
   sensitive = true
 }
+
+variable "ssm_backend_variables" {
+  type      = map(string)
+  sensitive = true
+}

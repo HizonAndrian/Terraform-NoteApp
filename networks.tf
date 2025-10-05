@@ -12,8 +12,8 @@ resource "aws_vpc" "noteapp_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name       = "noteapp_vpc"
-    Desciption = "VPC for Note Application."
+    Name        = "noteapp_vpc"
+    Description = "VPC for Note Application."
   }
 }
 
