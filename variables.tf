@@ -6,3 +6,8 @@ variable "subnet_config" {
     subnet_tags = map(string)
   }))
 }
+
+variable "ssm_db_credentials" {
+  type      = map(string)
+  sensitive = true
+}
