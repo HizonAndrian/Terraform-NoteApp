@@ -8,13 +8,6 @@ resource "aws_ecr_repository" "noteapp_ecr" {
   force_delete = true
 }
 
-# Namespace for Service discovery
-resource "aws_service_discovery_private_dns_namespace" "noteapp_namespace" {
-  name        = "noteapp.namespace.local"
-  description = "Name space for Note Application"
-  vpc         = aws_vpc.noteapp_vpc.id
-}
-
 # Cluster
 resource "aws_ecs_cluster" "noteapp_ecs_cluster" {
   name = "noteapp_cluster"

@@ -46,5 +46,5 @@ resource "aws_ssm_parameter" "MONGO_PORT" {
 resource "aws_ssm_parameter" "MONGO_HOST" {
   name  = "/noteapp/backend/MONGO_HOST"
   type  = "String"
-  value = var.ssm_backend_variables["MONGO_HOST"] #Required Service Discovery value first
+  value = "${aws_service_discovery_service.mongodb_discovery_service.name}.${aws_service_discovery_private_dns_namespace.noteapp_namespace.name}"
 }

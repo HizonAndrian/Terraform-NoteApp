@@ -21,6 +21,7 @@ resource "aws_subnet" "noteapp_subnet" {
   for_each   = var.subnet_config
   vpc_id     = aws_vpc.noteapp_vpc.id
   cidr_block = each.value.cidr_block
+  map_public_ip_on_launch = true
 
   tags = each.value.subnet_tags
 }
