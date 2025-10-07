@@ -12,7 +12,7 @@ resource "aws_service_discovery_service" "mongodb_discovery_service" {
     namespace_id = aws_service_discovery_private_dns_namespace.noteapp_namespace.id
 
     dns_records {
-      ttl = 300
+      ttl  = 300
       type = "A"
     }
   }

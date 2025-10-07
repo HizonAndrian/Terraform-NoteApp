@@ -1,7 +1,8 @@
 variable "subnet_config" {
   type = map(object({
-    cidr_block = string
-    is_public  = bool
+    cidr_block        = string
+    is_public         = bool
+    availability_zone = string
 
     subnet_tags = map(string)
   }))

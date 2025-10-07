@@ -1,7 +1,7 @@
-output "current_region" {
-  value = data.aws_region.current
-}
+# output "elastic_ip" {
+#   value = aws_eip.noteapp_NAT_eip.id
+# }
 
-output "public_subnets" {
-  value = local.public-subnets
-}
+# output "nat_gtw" {
+#   value = aws_nat_gateway.noteapp_nat_gtw.id
+# }
