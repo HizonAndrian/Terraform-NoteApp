@@ -40,7 +40,7 @@ resource "aws_ssm_parameter" "MONGO_DB" {
 resource "aws_ssm_parameter" "MONGO_PORT" {
   name  = "/noteapp/backend/MONGO_PORT"
   type  = "String"
-  value = var.ssm_backend_variables["MONGO_DB"]
+  value = var.ssm_backend_variables["MONGO_PORT"]
 }
 
 resource "aws_ssm_parameter" "MONGO_HOST" {

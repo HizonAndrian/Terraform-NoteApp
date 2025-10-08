@@ -1,29 +1,14 @@
-# In order to have an ID, use the created aws subnet.
-locals {
-  subnet_set = [
-    for i, j in aws_subnet.noteapp_subnet :
-    j.id
-    if var.subnet_config[i].is_public == true
-  ]
-}
-
-data "aws_region" "current_region" {}
-
-data "aws_iam_role" "ecs_role" {
-  name = "ecsTaskExecutionRole"
-}
-
 # Task Definition (MongoDB)
 resource "aws_ecs_task_definition" "mongodb_task_def" {
   family                   = "noteapp_mongodb"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
+  cpu                      = 256 #.25
+  memory                   = 512 #.5
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = "X86_64"
   }
-  cpu                = 256 #.25
-  memory             = 512 #.5
   execution_role_arn = data.aws_iam_role.ecs_role.arn
 
   container_definitions = jsonencode([
@@ -35,6 +20,7 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
         {
           containerPort = 27017
           hostPort      = 27017
+          protocol      = "tcp"
         }
       ]
       environment = [
@@ -75,8 +61,8 @@ resource "aws_ecs_service" "mongodb_service" {
   force_new_deployment = true
 
   network_configuration {
-    subnets          = local.subnet_set
-    assign_public_ip = true
+    subnets          = local.private_subnet_set
+    assign_public_ip = false
     security_groups  = [aws_security_group.mongodb_sg.id]
   }
 

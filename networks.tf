@@ -1,3 +1,4 @@
+# RAW
 locals {
   public-subnets = {
     for subnet_key, subnet_value in var.subnet_config :
@@ -12,6 +13,25 @@ locals {
     subnet_key => subnet_value
     if subnet_value.is_public == false
   }
+}
+
+# CURRENT RESOURCE
+# In order to fetch the IDs of the deployed subnets, use the created aws subnets.
+
+locals {
+  private_subnet_set = [
+    for i, j in aws_subnet.noteapp_subnet :
+    j.id
+    if var.subnet_config[i].is_public == false
+  ]
+}
+
+locals {
+  public_subnet_set = [
+    for i, j in aws_subnet.noteapp_subnet :
+    j.id
+    if var.subnet_config[i].is_public == true
+  ]
 }
 
 
