@@ -3,6 +3,7 @@ resource "aws_lb" "backend_alb" {
   internal           = false # Internet-facing or internal(private)
   load_balancer_type = "application"
   subnets            = local.public_subnet_set
+  security_groups    = [aws_security_group.backend_alb_sg.id]
 }
 
 resource "aws_lb_target_group" "noteapp_backend_tg" {
@@ -31,7 +32,7 @@ resource "aws_lb_listener" "noteapp_alb_listener" {
   certificate_arn   = "arn:aws:acm:${data.aws_region.current_region.id}:${data.aws_caller_identity.current.account_id}:certificate/5494ac12-bba2-45c4-9ca6-575bc9b0c97c"
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.noteapp_backend_tg.arn
   }
 }

@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.ecs_noteapp_logs.name
+          awslogs-group         = aws_cloudwatch_log_group.ecs_mongodb_logs.name
           awslogs-region        = data.aws_region.current_region.id
           awslogs-stream-prefix = "mongodb"
         }
@@ -69,4 +69,8 @@ resource "aws_ecs_service" "mongodb_service" {
   service_registries {
     registry_arn = aws_service_discovery_service.mongodb_discovery_service.arn
   }
+
+  depends_on = [
+    aws_service_discovery_private_dns_namespace.noteapp_namespace
+  ]
 }

@@ -46,6 +46,15 @@ resource "aws_ecs_task_definition" "backendAPI_task_def" {
           value = aws_ssm_parameter.MONGO_HOST.value
         }
       ]
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.ecs_backend_logs.name
+          awslogs-region        = data.aws_region.current_region.id
+          awslogs-stream-prefix = "backend"
+        }
+      }
     }
   ])
 }
@@ -67,9 +76,9 @@ resource "aws_ecs_service" "backend_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.noteapp_backend_tg.arn
-    container_name = "backend"
-    container_port = 8000
+    container_name   = "backend"
+    container_port   = 8000
   }
 
-  depends_on = [ aws_lb_listener.noteapp_alb_listener ]
+  depends_on = [aws_lb_listener.noteapp_alb_listener]
 }
