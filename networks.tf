@@ -20,17 +20,17 @@ locals {
 
 locals {
   private_subnet_set = [
-    for i, j in aws_subnet.noteapp_subnet :
-    j.id
-    if var.subnet_config[i].is_public == false
+    for k, v in aws_subnet.noteapp_subnet :
+    v.id
+    if var.subnet_config[k].is_public == false
   ]
 }
 
 locals {
   public_subnet_set = [
-    for i, j in aws_subnet.noteapp_subnet :
-    j.id
-    if var.subnet_config[i].is_public == true
+    for k, v in aws_subnet.noteapp_subnet :
+    v.id
+    if var.subnet_config[k].is_public == true
   ]
 }
 
