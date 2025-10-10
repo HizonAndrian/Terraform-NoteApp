@@ -1,5 +1,9 @@
 locals {
-  frontend_files = ["index.html", "script.js", "style.css"]
+  frontend_files = {
+    "index.html" = "text/html",
+    "script.js" = "application/javascript",
+    "style.css" = "text/css"
+  }
 }
 
 resource "aws_s3_bucket" "noteapp_frontend" {
@@ -29,12 +33,12 @@ resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
 }
 
 resource "aws_s3_object" "noteapp_frontend_files" {
-  for_each = toset(local.frontend_files)
-  bucket   = aws_s3_bucket.noteapp_frontend.id
-  key      = each.value
-  source   = "app/${each.value}"
+  for_each = local.frontend_files
+  bucket       = aws_s3_bucket.noteapp_frontend.bucket
+  key          = each.key
+  source       = "app/${each.key}"
+  content_type = each.value
 
-  # REVIEW!
-  etag = filemd5("app/${each.value}")
-
+  #Review
+  source_hash  = filemd5("app/${each.key}")
 }
