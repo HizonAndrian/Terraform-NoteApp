@@ -1,17 +1,9 @@
-locals {
-  frontend_files = {
-    "index.html" = "text/html",
-    "script.js" = "application/javascript",
-    "style.css" = "text/css"
-  }
-}
-
 resource "aws_s3_bucket" "noteapp_frontend" {
-  bucket        = "noteapp-frontend-bucket"
+  bucket        = "noteapp-frontend-buckets"
   force_destroy = true
 
   tags = {
-    Name = "NoteApp Frontend side"
+    Name = "NoteApp Frontend sides"
   }
 }
 
@@ -33,12 +25,17 @@ resource "aws_s3_bucket_public_access_block" "frontend_public_access" {
 }
 
 resource "aws_s3_object" "noteapp_frontend_files" {
-  for_each = local.frontend_files
+  for_each     = local.frontend_files
   bucket       = aws_s3_bucket.noteapp_frontend.bucket
   key          = each.key
-  source       = "app/${each.key}"
+  source       = "files/${each.key}"
   content_type = each.value
 
   #Review
-  source_hash  = filemd5("app/${each.key}")
+  source_hash = filemd5("files/${each.key}")
 }
+
+# resource "aws_s3_bucket_policy" "s3_OAC" {
+#   bucket = aws_s3_bucket.noteapp_frontend.id
+#   policy = 
+# }
