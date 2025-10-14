@@ -35,7 +35,29 @@ resource "aws_s3_object" "noteapp_frontend_files" {
   source_hash = filemd5("files/${each.key}")
 }
 
-# resource "aws_s3_bucket_policy" "s3_OAC" {
-#   bucket = aws_s3_bucket.noteapp_frontend.id
-#   policy = 
-# }
+resource "aws_s3_bucket_policy" "s3_OAC" {
+  bucket = aws_s3_bucket.noteapp_frontend.id
+  policy = data.aws_iam_policy_document.s3_OAC_Policy.json
+}
+
+data "aws_iam_policy_document" "s3_OAC_Policy" {
+  statement {
+    principals {
+      type = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+    actions = [
+      "s3:GetObject"
+    ]
+
+    resources = [ 
+      "${aws_s3_bucket.noteapp_frontend.arn}/*"
+    ]
+
+    condition {
+      test = "StringEquals"
+      variable = "AWS:SourceArn"
+      values = [ aws_cloudfront_distribution.noteapp_frontend_distribution.arn ]
+    }
+  }
+}

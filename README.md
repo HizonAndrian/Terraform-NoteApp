@@ -24,5 +24,26 @@ ECS Task (container: mongodb, port 27017)
 * default_cache_behavior 
 Requests like /index.html, /style.css, etc. → handled by default behavior, cached from S3. 
 
-* ordered_cache_behavior 
-Requests like /api/notes, /api/users → handled by ordered behavior, forwarded to your ALB, not cached.
+
+{
+    "Version": "2008-10-17",
+    "Id": "PolicyForCloudFrontPrivateContent",
+    "Statement": [
+        {
+            "Sid": "AllowCloudFrontServicePrincipal",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::noteapp-frontend-buckets/*",
+            "Condition": {
+                "StringEquals": {
+                    "AWS:SourceArn": "arn:aws:cloudfront::686797372394:distribution/E35P1C6LFWN00"
+                }
+            }
+        }
+    ]
+}
+
+

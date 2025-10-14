@@ -11,6 +11,17 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
   }
   execution_role_arn = data.aws_iam_role.ecs_role.arn
 
+  volume {
+    name = "noteapp-volume"
+
+    efs_volume_configuration {
+      file_system_id     = aws_efs_file_system.noteapp_volume.id
+      # EFS SIDE
+      root_directory     = "/"
+      transit_encryption = "ENABLED"
+    }
+  }
+
   container_definitions = jsonencode([
     {
       name      = "noteapp_mongodb"
@@ -23,6 +34,14 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
           protocol      = "tcp"
         }
       ]
+
+      mountPoints = [
+        {
+          sourceVolume = "noteapp-volume"
+          containerPath = "/data/db"
+        }
+      ]
+
       environment = [
         {
           name  = "MONGO_INITDB_DATABASE"
@@ -42,7 +61,7 @@ resource "aws_ecs_task_definition" "mongodb_task_def" {
         logDriver = "awslogs"
         options = {
           awslogs-group         = aws_cloudwatch_log_group.ecs_mongodb_logs.name
-          awslogs-region        = data.aws_region.current_region.id
+          awslogs-region        = data.aws_region.current_region.name
           awslogs-stream-prefix = "mongodb"
         }
       }

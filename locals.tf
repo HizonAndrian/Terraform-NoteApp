@@ -37,6 +37,14 @@ locals {
   ]
 }
 
+locals {
+  public_subnet_map = {
+    for k, v in aws_subnet.noteapp_subnet :
+    k => v.id
+    if var.subnet_config[k].is_public == true
+  }
+}
+
 #############################
 #         S3 LOCALS
 #############################
