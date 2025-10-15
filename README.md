@@ -73,7 +73,7 @@ Designed to demonstrate scalable microservice architecture, DevOps practices, an
    - **SSM Parameter Store** allows secure updates to environment variables without redeploying.
 
 
-**Future Enhancement**
+## Future Enhancement
    - Implement CI/CD pipeline using GitHub Actions.
    - Add authentication and user accounts
    - Migrate backend to AWS Lambda + API Gateway (optional serverless version).
