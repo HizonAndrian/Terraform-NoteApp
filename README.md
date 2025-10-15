@@ -14,7 +14,7 @@ Designed to demonstrate scalable microservice architecture, DevOps practices, an
 
 ## 🧠 Tech Stack
 **Infrastructure & IaC**
-- Terraform, Terraform Cloud
+- Terraform
 - AWS VPC, ECS, ECR, EFS
 - AWS IAM (roles & policies)
 - AWS Systems Manager (SSM Parameters for secrets & config)
@@ -34,6 +34,7 @@ Designed to demonstrate scalable microservice architecture, DevOps practices, an
 - Frontend (HTML, CSS, Javascript)
 
 **Deployment & Monitoring**
+- Docker (containerization and image management)
 - Terraform Cloud (remote backend)
 - AWS CloudWatch (logging & metrics)
 - ECS Task Definitions + Load Balancer (ALB)
@@ -52,7 +53,9 @@ Designed to demonstrate scalable microservice architecture, DevOps practices, an
      - Security Groups for each component (ALB, backend, MongoDB, EFS).
      - ECS Cluster and Task Definitions.
      - S3 bucket for static website assets or media files.
+     - Origin Access control (OAC) for secure access to S3.
      - CloudFront distribution for global CDN delivery.
+     - AWS Certificate Manager (ACM) for SSL/TLS certificate management and HTTPS.
      - Route 53 record pointing to CloudFront or ALB.
      - SSM Parameters for storing secrets (e.g., DB credentials, API keys).
 
@@ -70,32 +73,13 @@ Designed to demonstrate scalable microservice architecture, DevOps practices, an
    - **SSM Parameter Store** allows secure updates to environment variables without redeploying.
 
 
+**Future Enhancement**
+   - Implement CI/CD pipeline using GitHub Actions.
+   - Add authentication and user accounts
+   - Migrate backend to AWS Lambda + API Gateway (optional serverless version).
 
 
-
-
-# First command to run:
- - terraform apply -target="aws_ecr_repository.noteapp_ecr"
-
-
- Locals and Local
-
- Client (Browser)
-   ↓  HTTPS :443
-Application Load Balancer
-   ↓  Listener (port 443)
-   ↓  Forward
-Target Group (port 8000)
-   ↓
-ECS Task (container: backend, port 8000)
-   ↓
-ECS Task (container: mongodb, port 27017)
-
-* static vs dynamin
-
-* TTL
-
-* default_cache_behavior 
-Requests like /index.html, /style.css, etc. → handled by default behavior, cached from S3. 
-
-
+# 👤 Author
+ **Mark Andrian Hizon** — DevOps/Cloud Enthusiast <br>
+[ 🔗 LinkedIn Profile ](https://www.linkedin.com/in/mark-andrian-hizon-9a215722a/) <br>
+[ 🏅 Credly Profile   ](https://www.credly.com/users/mark-andrian-hizon.9ae74f49)
