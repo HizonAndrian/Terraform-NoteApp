@@ -21,6 +21,8 @@ locals {
 
 # CURRENT RESOURCE
 # In order to fetch the IDs of the deployed subnets, use the created aws subnets.
+
+# LIST
 locals {
   private_subnet_set = [
     for k, v in aws_subnet.noteapp_subnet :
@@ -29,6 +31,7 @@ locals {
   ]
 }
 
+# LIST
 locals {
   public_subnet_set = [
     for k, v in aws_subnet.noteapp_subnet :
@@ -37,6 +40,8 @@ locals {
   ]
 }
 
+
+# MAP
 locals {
   public_subnet_map = {
     for k, v in aws_subnet.noteapp_subnet :

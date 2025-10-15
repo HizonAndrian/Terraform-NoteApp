@@ -4,28 +4,27 @@ services:
     build: ./backend
     ports:
       - 8000:8000
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     env_file:
       - ./.env
   
-  mongodb:
-    image:  mongo
-    ports:
-      - 27017:27017
-    env_file:
-      - ./.env
-    volumes:
-      - mongo_data:/data/db
+  # mongodb:
+  #   image:  mongo
+  #   ports:
+  #     - 27017:27017
+  #     - ./.env
+  #   volumes:
+  #     - mongo_data:/data/db
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:80"   # frontend runs on localhost:3000
-    depends_on:
-      - backend
-    env_file:
-      - ./.env
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "3000:80"   # frontend runs on localhost:3000
+  #   depends_on:
+  #     - backend
+  #   env_file:
+  #     - ./.env
 
-volumes:
-  mongo_data:
+# volumes:
+#   mongo_data:

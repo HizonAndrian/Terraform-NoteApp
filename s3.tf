@@ -28,11 +28,13 @@ resource "aws_s3_object" "noteapp_frontend_files" {
   for_each     = local.frontend_files
   bucket       = aws_s3_bucket.noteapp_frontend.bucket
   key          = each.key
-  source       = "files/${each.key}"
+  # source       = "files/${each.key}"
+  source       = "dockerfiles/frontend/${each.key}"
   content_type = each.value
 
   #Review
-  source_hash = filemd5("files/${each.key}")
+  # source_hash = filemd5("files/${each.key}")
+  source_hash = filemd5("dockerfiles/frontend/${each.key}")
 }
 
 resource "aws_s3_bucket_policy" "s3_OAC" {
