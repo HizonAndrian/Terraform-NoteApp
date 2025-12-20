@@ -62,7 +62,10 @@ resource "aws_eip" "noteapp_NAT_eip" {
   domain   = "vpc"
 }
 
-#NAT GATEWAY
+
+# One NAT per private subnet
+# A NAT Gateway only works inside the same Availability Zone (AZ) where it lives.
+# Private subnets cannot send traffic to a NAT Gateway in a different AZ.
 resource "aws_nat_gateway" "noteapp_nat_gtw" {
   for_each      = local.public-subnets
   allocation_id = aws_eip.noteapp_NAT_eip[each.key].allocation_id
@@ -74,6 +77,8 @@ resource "aws_nat_gateway" "noteapp_nat_gtw" {
   }
 }
 
+
+# One route table per NAT
 resource "aws_route_table" "noteapp_private_routetbl" {
   for_each = local.private-subnets
   vpc_id   = aws_vpc.noteapp_vpc.id

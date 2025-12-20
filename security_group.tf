@@ -29,7 +29,7 @@ resource "aws_vpc_security_group_egress_rule" "mongodb_sg_egress" {
 ####################################
 resource "aws_security_group" "backend_api_sg" {
   name        = "noteapp_backend_sg"
-  description = "Allow traffic from loadbalancer."
+  description = "Allow traffic from backend loadbalancer."
   vpc_id      = aws_vpc.noteapp_vpc.id
 }
 

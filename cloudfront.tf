@@ -54,7 +54,6 @@ resource "aws_cloudfront_distribution" "noteapp_frontend_distribution" {
     max_ttl                = 86400
   }
 
-
   restrictions {
     geo_restriction {
       restriction_type = "none"

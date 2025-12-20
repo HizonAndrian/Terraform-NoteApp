@@ -20,7 +20,7 @@ Designed to demonstrate scalable microservice architecture, DevOps practices, an
 - AWS Systems Manager (SSM Parameters for secrets & config)
 
 **Networking & Security**
-- Security Groups, NAT Gateway, Route Tables
+- Security Groups, NAT Gateway, Route Tables, Internet Gateway
 - AWS Route 53 (custom domain)
 - AWS CloudFront (CDN + HTTPS)
 - AWS Certificate Manager (ACM TLS)
