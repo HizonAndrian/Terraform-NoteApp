@@ -6,12 +6,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: ci
+    # Env variable to be passed to python code.
+    env:
+      MONGO_USER: ${{ vars.MONGO_INITDB_ROOT_USERNAME}}
+      MONGO_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+      MONGO_HOST: "mongotester"
+      MONGO_DB: "noteappdb"
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
     services:
+      # Service name
       mongotester:
         image: mongo
         ports:
