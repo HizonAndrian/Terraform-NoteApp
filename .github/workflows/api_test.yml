@@ -13,10 +13,6 @@ jobs:
       MONGO_HOST: "mongotester"
       MONGO_DB: "noteappdb"
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
     services:
       # Service name
       mongotester:
@@ -27,3 +23,20 @@ jobs:
           MONGO_INITDB_ROOT_USERNAME: ${{ vars.MONGO_INITDB_ROOT_USERNAME }}
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
           MONGO_INITDB_DATABASE: noteappdb
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install Dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r ./dockerfiles/backend/app/requirements.txt
+        echo 'Done installation.'
