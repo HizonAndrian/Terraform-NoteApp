@@ -40,3 +40,8 @@ jobs:
         pip install --upgrade pip
         pip install -r ./dockerfiles/backend/app/requirements.txt
         echo 'Done installation.'
+
+    - name: Test
+      run: |
+        pytest dockerfiles/tests/test_health.py
+        echo 'Success!'
