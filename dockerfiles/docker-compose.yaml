@@ -1,4 +1,12 @@
 services:
+  # mongodb:
+  #   image:  mongo
+  #   ports:
+  #     - 27017:27017
+  #     - ./.env
+  #   volumes:
+  #     - mongo_data:/data/db
+
   backend:
     container_name: backend_container
     build: ./backend
@@ -8,14 +16,6 @@ services:
     #   - mongodb
     env_file:
       - ./.env
-  
-  # mongodb:
-  #   image:  mongo
-  #   ports:
-  #     - 27017:27017
-  #     - ./.env
-  #   volumes:
-  #     - mongo_data:/data/db
 
   # frontend:
   #   build: ./frontend
