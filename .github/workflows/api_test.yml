@@ -43,5 +43,5 @@ jobs:
 
     - name: Test
       run: |
-        pytest dockerfiles/tests/test_health.py
+        pytest dockerfiles/backend/tests/test_health.py
         echo 'Success!'
