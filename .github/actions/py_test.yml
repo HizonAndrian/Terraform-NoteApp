@@ -1,3 +1,0 @@
-name: "API Testing"
-
-on: workflow_dispatch
