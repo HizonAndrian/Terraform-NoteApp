@@ -36,6 +36,7 @@ jobs:
     - name: Install Dependencies
       run: |
         pip install --upgrade pip
+        pip install httpx[http2]
         pip install -r ./dockerfiles/backend/app/requirements.txt
         echo 'Done installation.'
 
