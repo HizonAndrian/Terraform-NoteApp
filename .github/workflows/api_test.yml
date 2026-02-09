@@ -42,5 +42,6 @@ jobs:
 
     - name: Test
       run: |
-        pwd
-        ls
+        cd dockerfiles
+        pytest -q
+        echo 'Success!'
