@@ -43,5 +43,7 @@ jobs:
     - name: Test
       run: |
         cd ./dockerfiles/backend
+        pwd
+        ls
         pytest -q
         echo 'Success!'
