@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from bson import ObjectId
 from pymongo import ReturnDocument
-from db import get_database
+from .db import get_database
 from fastapi import APIRouter, Depends
 
 router = APIRouter()
