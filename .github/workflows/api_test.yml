@@ -44,3 +44,4 @@ jobs:
       run: |
         cd ./dockerfiles/backend
         python -c "import app; print(app)"
+        pytest -q
