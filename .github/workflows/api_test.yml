@@ -43,7 +43,4 @@ jobs:
     - name: Debug Python Path
       run: |
         cd ./dockerfiles/backend
-        pwd
-        ls -R
-        python -c "import sys; print(sys.path)"
-        python -c "import app"
+        python -c "import app; print(app)"
