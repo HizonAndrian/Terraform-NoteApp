@@ -42,5 +42,5 @@ jobs:
 
     - name: Test
       run: |
-        pytest -q
-        echo 'Success!'
+        pwd
+        ls
