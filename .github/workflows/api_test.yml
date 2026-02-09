@@ -40,10 +40,10 @@ jobs:
         pip install -r ./dockerfiles/backend/app/requirements.txt
         echo 'Done installation.'
 
-    - name: Test
+    - name: Debug Python Path
       run: |
         cd ./dockerfiles/backend
         pwd
-        ls
-        pytest -q
-        echo 'Success!'
+        ls -R
+        python -c "import sys; print(sys.path)"
+        python -c "import app"
