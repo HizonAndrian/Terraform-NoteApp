@@ -1,6 +1,9 @@
 name: "Testing Workflow"
 
-on: workflow_dispatch
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -54,15 +57,8 @@ jobs:
         echo "--------------------------------------------------"
         docker logs $(docker ps -q --filter "ancestor=mongo")
 
-    - name: DNS Check
-      if: failure()
-      run: |
-        echo "Resolving mongotester..."
-        getent hosts mongotester
-        ping -c 2 mongotester || true
-
-
     - name: Debug Python Path
+      if: failure()
       run: |
         cd ./dockerfiles/backend
         pytest -q
