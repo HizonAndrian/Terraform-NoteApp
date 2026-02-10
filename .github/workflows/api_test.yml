@@ -38,7 +38,14 @@ jobs:
         pip install --upgrade pip
         pip install httpx[http2]
         pip install -r ./dockerfiles/backend/app/requirements.txt
-        echo 'Done installation.'
+
+    - name: Download wait-for-it.sh
+      run: |
+        curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+        chmod +x wait-for-it.sh
+
+    - name: Wait for MongoDB Service
+      run: ./wait-for-it.sh mongotester:27017 --timeout=60 --strict
 
     - name: Debug Python Path
       run: |
