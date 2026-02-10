@@ -48,6 +48,7 @@ jobs:
       run: ./wait-for-it.sh mongotester:27017 --timeout=60 --strict
 
     - name: Show Mongo logs
+      if: failure()
       run: |
         docker ps -a
         echo "--------------------------------------------------"
