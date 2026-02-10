@@ -38,6 +38,12 @@ jobs:
         pip install --upgrade pip
         pip install httpx[http2]
         pip install -r ./dockerfiles/backend/app/requirements.txt
+    
+    - name: Show Mongo logs
+      run: docker ps -a
+
+    - name: Mongo logs
+      run: docker logs $(docker ps -q --filter "ancestor=mongo")
 
     - name: Download wait-for-it.sh
       run: |
