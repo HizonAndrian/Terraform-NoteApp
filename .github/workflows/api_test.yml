@@ -45,7 +45,7 @@ jobs:
         chmod +x wait-for-it.sh
 
     - name: Wait for MongoDB Service
-      run: ./wait-for-it.sh mongotester:27017 --timeout=60 --strict
+      run: ./wait-for-it.sh mongotester:27017 --timeout=120 --strict
 
     - name: Show Mongo logs
       if: failure()
@@ -54,8 +54,14 @@ jobs:
         echo "--------------------------------------------------"
         docker logs $(docker ps -q --filter "ancestor=mongo")
 
+    - name: DNS Check
+      run: |
+        echo "Resolving mongotester..."
+        getent hosts mongotester
+        ping -c 2 mongotester || true
+
+
     - name: Debug Python Path
       run: |
         cd ./dockerfiles/backend
-        python -c "import app; print(app)"
         pytest -q
