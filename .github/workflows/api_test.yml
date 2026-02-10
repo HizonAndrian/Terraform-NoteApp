@@ -55,6 +55,7 @@ jobs:
         docker logs $(docker ps -q --filter "ancestor=mongo")
 
     - name: DNS Check
+      if: failure()
       run: |
         echo "Resolving mongotester..."
         getent hosts mongotester
