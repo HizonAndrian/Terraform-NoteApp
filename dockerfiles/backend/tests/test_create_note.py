@@ -9,7 +9,7 @@ MONGO_PASSWORD = os.environ["MONGO_PASSWORD"]
 MONGO_HOST = os.environ["MONGO_HOST"]
 MONGO_DB = os.environ["MONGO_DB"]
 
-MONGO_URL = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{MONGO_DB}"
+MONGO_URL = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{MONGO_DB}?authSource=admin"
 
 
 def override_get_database():
