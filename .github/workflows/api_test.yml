@@ -48,7 +48,7 @@ jobs:
         chmod +x wait-for-it.sh
 
     - name: Wait for MongoDB Service
-      run: ./wait-for-it.sh localhost:27017 --timeout=120 --strict
+      run: ./wait-for-it.sh localhost:27017 --timeout=30 --strict
 
     - name: Show Mongo logs
       if: failure()
