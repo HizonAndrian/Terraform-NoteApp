@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from bson import ObjectId
 from pymongo import ReturnDocument
-from app.db import get_database
+from app.db import main_database
 from fastapi import APIRouter, Depends
 
 router = APIRouter()
@@ -25,7 +25,7 @@ async def root():
 
 
 @router.post("/note", response_model=note_item, status_code=201)
-async def create_note(note: note_item, db = Depends(get_database)):
+async def create_note(note: note_item, db = Depends(main_database)):
     # Insert the note into MongoDB.
     result = await db.notes.insert_one(note.model_dump())
     created_note = note.model_dump()
@@ -33,7 +33,7 @@ async def create_note(note: note_item, db = Depends(get_database)):
     return created_note
 
 @router.get("/notes")
-async def get_note(db = Depends(get_database)):
+async def get_note(db = Depends(main_database)):
     # Create a list to hold notes.
     notes_collected = []
     # Retrieve notes from MongoDB.
@@ -47,7 +47,7 @@ async def get_note(db = Depends(get_database)):
     return notes_collected
 
 @router.get("/note/{id}")
-async def get_note_id(id: str, db = Depends(get_database)):
+async def get_note_id(id: str, db = Depends(main_database)):
     note = await db.notes.find_one({"_id": ObjectId(id)})
     if note is not None:
         # Convert ObjectId to string.
@@ -58,7 +58,7 @@ async def get_note_id(id: str, db = Depends(get_database)):
 
 
 @router.put("/note/{id}")
-async def update_note(id: str, item: update_item, db = Depends(get_database)):
+async def update_note(id: str, item: update_item, db = Depends(main_database)):
 
     # Focus on the BODY of the request.
     # Create a dictionary to hold the fields to be updated. 
@@ -84,7 +84,7 @@ async def update_note(id: str, item: update_item, db = Depends(get_database)):
 
 
 @router.delete("/note/{id}")
-async def delete_note(id: str, db = Depends(get_database)):
+async def delete_note(id: str, db = Depends(main_database)):
 
     delete_target = await db.notes.delete_one({"_id": ObjectId(id)})
     if delete_target.deleted_count == 1:

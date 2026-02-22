@@ -1,8 +1,9 @@
+# import os
 # from fastapi.testclient import TestClient
 # from motor.motor_asyncio import AsyncIOMotorClient
 
-# from backend.app.main import app
-# from backend.app.db import get_database
+# from app.main import app
+# from app.db import get_database
 
 
 # # -------------------------

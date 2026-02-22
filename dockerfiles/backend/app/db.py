@@ -9,6 +9,6 @@ MONGO_URL = f"mongodb://{os.getenv('MONGO_USERNAME')}:"\
             f"{os.getenv('MONGO_DB')}"\
             f"?authSource=admin"
 
-def get_database():
+def main_database():
     client = AsyncIOMotorClient(MONGO_URL)
     return client.get_database()
