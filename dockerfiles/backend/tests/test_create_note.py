@@ -1,13 +1,14 @@
 import os
 from fastapi.testclient import TestClient
-from app.main import app
-from app.db import get_database
 from motor.motor_asyncio import AsyncIOMotorClient
 
-MONGO_USER = os.environ["MONGO_USER"]
-MONGO_PASSWORD = os.environ["MONGO_PASSWORD"]
-MONGO_HOST = os.environ["MONGO_HOST"]
-MONGO_DB = os.environ["MONGO_DB"]
+from app.main import app
+from app.db import get_database
+
+MONGO_USER     = os.getenv("MONGO_USER")
+MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
+MONGO_HOST     = os.getenv("MONGO_HOST")
+MONGO_DB       = os.getenv("MONGO_DB")
 
 MONGO_URL = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{MONGO_DB}?authSource=admin"
 
