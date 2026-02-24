@@ -17,7 +17,7 @@ MONGO_DB       = os.getenv("MONGO_DB")
 MONGO_URL = f"mongodb://{MONGO_USER}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{MONGO_DB}?authSource=admin"
 
 
-def override_main_database(db_name="noteapp_db_test"):
+async def override_main_database(db_name="noteapp_db_test"):
     db_client = AsyncIOMotorClient(MONGO_URL) # Create a connection with MongoDB using the URL above
     return db_client.get_database(db_name)    # Select the database
 
