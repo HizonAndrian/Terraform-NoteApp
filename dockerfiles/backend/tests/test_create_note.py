@@ -23,6 +23,9 @@ app.dependency_overrides[main_database] = override_main_database
 
 client = TestClient(app)
 
+# -------------------------
+# Tests
+# -------------------------
 def test_post():
     response = client.post("/note", 
                            json={
