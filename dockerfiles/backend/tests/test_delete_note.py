@@ -3,8 +3,8 @@ import os
 from fastapi.testclient import TestClient
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from backend.app.main import app
-from backend.app.db import main_database
+from app.main import app
+from app.db import main_database
 
 # -------------------------
 # Test database dependency
