@@ -1,13 +1,15 @@
 name: "Testing Workflow"
 
 on: 
+  # Add PR for faster feedback during developement
   push:
     branches:
       - main
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # Add a specific version to avoid unexpected changes in environement.
+    runs-on: ubuntu-22.04
     environment: ci
     # Env variable to be passed to python code.
     env:
@@ -19,7 +21,8 @@ jobs:
     services:
       # Service name
       mongotester:
-        image: mongo
+        # Also add a version
+        image: mongo:7.0
         ports:
           - 27017:27017
         env:
