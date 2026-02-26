@@ -21,7 +21,7 @@ jobs:
     services:
       # Service name
       mongotester:
-        # Also add a version
+        # MAJOR.MINOR.PATCH
         image: mongo:7.0
         ports:
           - 27017:27017
@@ -63,4 +63,4 @@ jobs:
     - name: Run API Tests
       run: |
         cd ./dockerfiles/backend
-        pytest -q
+        pytest -q --maxfail=1 --disable-warnings
