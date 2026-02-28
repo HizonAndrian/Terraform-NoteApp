@@ -1,7 +1,6 @@
 name: "Testing Workflow"
 
-on: 
-  # Add PR for faster feedback during developement
+on:
   push:
     branches:
       - main
@@ -11,7 +10,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
 
 
 jobs: 
@@ -47,7 +45,6 @@ jobs:
       with:
         python-version: "3.11"
 
-    # Test
     - name: Cache dependencies
       uses: actions/cache@v4  # Official cache action
       with:
