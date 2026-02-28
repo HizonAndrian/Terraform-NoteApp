@@ -14,10 +14,10 @@ on:
   workflow_dispatch:
 
 
-jobs:
+jobs: 
   test:
     # Add a specific version to avoid unexpected changes in environement.
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04 # Ephemeral runner
     environment: ci
     # Env variable to be passed to python code.
     env:
@@ -47,6 +47,14 @@ jobs:
       with:
         python-version: "3.11"
 
+    - name: Cache dependencies
+      uses: actions/cache@v4  # Official cache action
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('dockerfiles/backend/app/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+        
     - name: Install Dependencies
       run: |
         pip install --upgrade pip
